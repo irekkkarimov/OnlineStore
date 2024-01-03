@@ -1,0 +1,8 @@
+﻿services:
+  server:
+    image: server
+    build:
+      context: .
+      dockerfile: Server/Dockerfile
+  db:
+    image: "postgres"
