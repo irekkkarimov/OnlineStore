@@ -1,6 +1,6 @@
+using Domain.Entities;
+using MediatR;
+
 namespace Application.CQRS.Products.Commands;
 
-public class AddProductCommand
-{
-    
-}
+public record AddProductCommand(Product Product) : IRequest<Product>;
