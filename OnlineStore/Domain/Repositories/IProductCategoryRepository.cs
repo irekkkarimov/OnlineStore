@@ -8,5 +8,5 @@ public interface IProductCategoryRepository
     Task<bool> Update(ProductCategory productCategory);
     Task<bool> Remove(ProductCategory productCategory);
     Task<List<ProductCategory>> GetAll();
-    Task<ProductCategory> GetById(int id);
+    Task<ProductCategory?> GetById(int id);
 }

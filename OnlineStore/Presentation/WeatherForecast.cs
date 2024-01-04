@@ -1,4 +1,4 @@
-namespace Server;
+namespace Presentation;
 
 public class WeatherForecast
 {

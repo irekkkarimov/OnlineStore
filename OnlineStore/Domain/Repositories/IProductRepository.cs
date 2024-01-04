@@ -8,5 +8,5 @@ public interface IProductRepository
     Task<bool> Update(Product product);
     Task<bool> Remove(Product product);
     Task<List<Product>> GetAll();
-    Task<Product> GetById(int id);
+    Task<Product?> GetById(int id);
 }

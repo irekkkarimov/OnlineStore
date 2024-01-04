@@ -7,17 +7,22 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Abstractions\" />
       <Folder Include="CQRS\Products\Queries\" />
       <Folder Include="CQRS\Products\QueryHandlers\" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="MediatR" Version="12.2.0" />
+      <PackageReference Include="MediatR" Version="12.1.1" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Domain\Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+        <HintPath>..\..\..\..\..\.nuget\packages\microsoft.extensions.dependencyinjection.abstractions\7.0.0\lib\net7.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>

@@ -1,3 +1,5 @@
+using Application;
+using Infrastructure;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 
@@ -22,6 +24,11 @@ builder.Services.AddSwaggerGen(options =>
     
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
+
+// Custom and installed
+builder.Services
+    .AddApplication()
+    .AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
