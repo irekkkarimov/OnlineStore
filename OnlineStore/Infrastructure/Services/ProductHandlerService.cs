@@ -1,13 +1,14 @@
 using Application.Abstractions.Services;
 using Domain.Entities;
+using Domain.Repositories;
 using Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Services;
 
-public class ProductHandlerService : IProductHandlerSerivce
+public class ProductHandlerService : IProductHandlerService
 {
-    private readonly OnlineStoreDbContext _context;
+    private readonly IProductRepository;
 
     public ProductHandlerService(OnlineStoreDbContext context)
     {

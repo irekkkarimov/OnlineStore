@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Infrastructure.Persistance
+namespace Infrastructure.Persistance.Migrations
 {
     [DbContext(typeof(OnlineStoreDbContext))]
     partial class OnlineStoreDbContextModelSnapshot : ModelSnapshot

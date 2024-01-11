@@ -1,6 +1,7 @@
 using Application;
 using Infrastructure;
 using Microsoft.OpenApi.Models;
+using Presentation.Profiles;
 using Swashbuckle.AspNetCore.Filters;
 
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -29,6 +30,8 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services
     .AddApplication()
     .AddInfrastructure(builder.Configuration);
+
+// builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 var app = builder.Build();
 
