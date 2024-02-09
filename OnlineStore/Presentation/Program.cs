@@ -1,11 +1,14 @@
 using Application;
 using Infrastructure;
 using Microsoft.OpenApi.Models;
+using Presentation.Middlewares;
 using Presentation.Profiles;
 using Swashbuckle.AspNetCore.Filters;
 
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.AddUserSecrets<string>();
 
 // Default
 builder.Services.AddControllers();
@@ -29,7 +32,8 @@ builder.Services.AddSwaggerGen(options =>
 // Custom and installed
 builder.Services
     .AddApplication()
-    .AddInfrastructure(builder.Configuration);
+    .AddInfrastructure(builder.Configuration)
+    .AddScoped<ExceptionHandlingMiddleware>();
 
 // builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
@@ -44,6 +48,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.MapControllers();
 

@@ -20,9 +20,9 @@ public class ProductController : Controller
     public async Task<IActionResult> Add(ProductAddDto productAddDto)
     {
         var addProductCommand = new AddProductCommand(productAddDto);
-        var product = await _mediator.Send(addProductCommand);
+        await _mediator.Send(addProductCommand);
         
-        return Ok(product);
+        return Ok();
     }
 
     [HttpGet]

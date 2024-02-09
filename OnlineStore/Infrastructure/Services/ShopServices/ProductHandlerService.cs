@@ -1,4 +1,5 @@
 using Application.Abstractions.Services;
+using Application.Abstractions.Services.ShopServices;
 using Domain.Entities;
 using Domain.Repositories;
 using Infrastructure.Persistance;
@@ -8,20 +9,22 @@ namespace Infrastructure.Services;
 
 public class ProductHandlerService : IProductHandlerService
 {
-    private readonly IProductRepository;
+    private readonly IProductRepository _productRepository;
 
-    public ProductHandlerService(OnlineStoreDbContext context)
+    public ProductHandlerService(IProductRepository productRepository)
     {
-        _context = context;
+        _productRepository = productRepository;
     }
 
     public async Task<Dictionary<ProductCategory, int>> CalculateProductCountForEachCategory()
     {
-        var allProductGroupsList = await _context.Products
+        var allProducts = await _productRepository.GetAllAsync();
+        
+        var allProductGroupsList = allProducts
             .Where(i => i.Category != null)
             .GroupBy(i => i.Category)
             .Where(i => i.Key != null)
-            .ToListAsync();
+            .ToList();
 
         var groupObjList = allProductGroupsList.Select(i => new { i.Key, Count = i.Count() })
             .ToList();
