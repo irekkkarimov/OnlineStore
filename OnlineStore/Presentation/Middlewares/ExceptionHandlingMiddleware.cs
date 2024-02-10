@@ -15,7 +15,7 @@ public class ExceptionHandlingMiddleware : IMiddleware
         {
             var newJsonResult = new { statusCode = e.StatusCode, message = e.Message };
             var messageJson = JsonSerializer.Serialize(newJsonResult);
-            Console.WriteLine(messageJson);
+            Console.WriteLine(e.Message);
             context.Response.StatusCode = e.StatusCode;
             await context.Response.WriteAsync(messageJson);
         }
@@ -23,8 +23,10 @@ public class ExceptionHandlingMiddleware : IMiddleware
         {
             var newJsonResult = new { statusCode = 500, message = e.Message };
             var messageJson = JsonSerializer.Serialize(newJsonResult);
+            Console.WriteLine(e.Message);
             context.Response.StatusCode = 500;
             await context.Response.WriteAsync(messageJson);
+            throw;
         }
     }
 }

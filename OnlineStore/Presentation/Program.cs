@@ -15,7 +15,7 @@ builder.Configuration.AddUserSecrets<string>();
 // Default
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddHttpContextAccessor();
 
 // Swagger
 builder.Services.AddSwaggerGen(options =>
