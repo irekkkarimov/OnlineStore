@@ -1,8 +1,10 @@
+using System.Text;
 using Application;
 using Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Presentation.Middlewares;
-using Presentation.Profiles;
 using Swashbuckle.AspNetCore.Filters;
 
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -35,7 +37,19 @@ builder.Services
     .AddInfrastructure(builder.Configuration)
     .AddScoped<ExceptionHandlingMiddleware>();
 
-// builder.Services.AddAutoMapper(typeof(Program).Assembly);
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
+                .GetBytes(builder.Configuration.GetSection("JWT_SECRET_TOKEN").Value!)),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
+
 
 var app = builder.Build();
 
@@ -46,11 +60,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.UseMiddleware<ExceptionHandlingMiddleware>();
-
 app.MapControllers();
-
 app.Run();
