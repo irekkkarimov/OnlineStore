@@ -13,7 +13,7 @@ public class ProductRepository : IProductRepository
         _context = context;
     }
 
-    public async Task<bool> Add(Product product)
+    public async Task<bool> AddAsync(Product product)
     { 
         await _context.AddAsync(product);
         await _context.SaveChangesAsync();
@@ -21,7 +21,7 @@ public class ProductRepository : IProductRepository
         return true;
     }
 
-    public async Task<bool> Update(Product product)
+    public async Task<bool> UpdateAsync(Product product)
     {
         var oldProduct = await _context.Products.FirstOrDefaultAsync(i => i.Id == product.Id);
 
@@ -34,7 +34,7 @@ public class ProductRepository : IProductRepository
         return true;
     }
 
-    public async Task<bool> Remove(Product product)
+    public async Task<bool> RemoveAsync(Product product)
     {
         _context.Remove(product);
         await _context.SaveChangesAsync();
@@ -42,15 +42,22 @@ public class ProductRepository : IProductRepository
         return true;
     }
 
-    public async Task<List<Product>> GetAll()
+    public async Task<List<Product>> GetAllAsync()
     {
-        var products = _context.Products;
+        var products = _context.Products.Include(i => i.Category);
         return await products.ToListAsync();
     }
 
-    public async Task<Product?> GetById(int id)
+    public async Task<List<Product>> GetAllByCategoryIdAsync(int categoryId)
     {
-        var productQuery = _context.Products.FirstOrDefaultAsync(i => i.Id == id);
+        var productsByCategoryId = _context.Products.Where(i => i.CategoryId == categoryId)
+            .Include(i => i.Category);
+        return await productsByCategoryId.ToListAsync();
+    }
+
+    public async Task<Product?> GetByIdAsync(int id)
+    {
+        var productQuery = _context.Products.Include(i => i.Category).FirstOrDefaultAsync(i => i.Id == id);
 
         return await productQuery;
     }
