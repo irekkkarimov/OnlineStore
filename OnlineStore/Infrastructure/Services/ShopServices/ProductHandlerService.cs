@@ -1,11 +1,8 @@
-using Application.Abstractions.Services;
 using Application.Abstractions.Services.ShopServices;
 using Domain.Entities;
 using Domain.Repositories;
-using Infrastructure.Persistance;
-using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Services;
+namespace Infrastructure.Services.ShopServices;
 
 public class ProductHandlerService : IProductHandlerService
 {

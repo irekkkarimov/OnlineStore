@@ -1,6 +1,6 @@
+using Application.DTOs.Product;
+using MediatR;
+
 namespace Application.CQRS.Products.Queries;
 
-public class GetAllProductsQuery
-{
-    
-}
+public record GetAllProductsQuery : IRequest<List<ProductGetDto>>;

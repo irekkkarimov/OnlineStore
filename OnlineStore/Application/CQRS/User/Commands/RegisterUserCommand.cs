@@ -3,4 +3,4 @@ using MediatR;
 
 namespace Application.CQRS.User.Commands;
 
-public record RegisterUserCommand(UserAddDto UserAddDto) : IRequest<UserAddDto>;
+public record RegisterUserCommand(UserRegisterDto UserRegisterDto) : IRequest;

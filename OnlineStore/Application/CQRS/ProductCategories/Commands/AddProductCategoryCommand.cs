@@ -1,6 +1,7 @@
-namespace Application.CQRS.Products.Commands;
+using Application.DTOs.ProductCategory;
+using Domain.Entities;
+using MediatR;
 
-public class AddProductCategoryCommand
-{
-    
-}
+namespace Application.CQRS.ProductCategories.Commands;
+
+public record AddProductCategoryCommand(ProductCategoryAddDto ProductCategoryAddDto) : IRequest<ProductCategory>;

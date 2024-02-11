@@ -1,8 +1,9 @@
 using Domain.Entities;
 using Domain.Repositories;
+using Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Persistance.Repositories;
+namespace Infrastructure.Persistence.Repositories;
 
 public class UserRepository : IUserRepository
 {

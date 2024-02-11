@@ -1,6 +1,6 @@
+using Application.DTOs.CartItem;
+using MediatR;
+
 namespace Application.CQRS.Cart.Commands;
 
-public class RemoveProductFromCartCommand
-{
-    
-}
+public record RemoveProductFromCartCommand(CartItemRemoveDto CartItemRemoveDto) : IRequest;

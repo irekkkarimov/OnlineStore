@@ -1,19 +1,18 @@
 using System.Text.RegularExpressions;
-using Application.Abstractions.CustomExceptions.Abstractions;
 using Application.Abstractions.CustomExceptions.UserExceptions;
 using Application.Abstractions.Services.UserServices;
 using Application.DTOs.User;
 
-namespace Infrastructure.Services;
+namespace Infrastructure.Services.UserServices;
 
 public class UserAuthValidationService : IUserAuthValidationService
 {
     private readonly Regex _emailRegexPattern = new(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
-    public void ValidateRegistration(UserAddDto userAddDto)
+    public void ValidateRegistration(UserRegisterDto userRegisterDto)
     {
-        ValidateUsername(userAddDto.Username);
-        ValidateEmail(userAddDto.Email);
-        ValidatePassword(userAddDto.Password);
+        ValidateUsername(userRegisterDto.Username);
+        ValidateEmail(userRegisterDto.Email);
+        ValidatePassword(userRegisterDto.Password);
     }
 
     public void ValidateLogin(UserLoginDto userLoginDto)
@@ -25,7 +24,7 @@ public class UserAuthValidationService : IUserAuthValidationService
     private void ValidateUsername(string username)
     {
         if (username.Length < 5)
-            throw new InvalidUsernameException("Username's length is less than 5 characters");
+            throw new InvalidUsernameException("Username length is less than 5 characters");
     }
 
     private void ValidateEmail(string email)
@@ -37,6 +36,6 @@ public class UserAuthValidationService : IUserAuthValidationService
     private void ValidatePassword(string password)
     {
         if (password.Length < 6)
-            throw new InvalidPasswordException("Password's length is less than 6 characters");
+            throw new InvalidPasswordException("Password length is less than 6 characters");
     }
 }

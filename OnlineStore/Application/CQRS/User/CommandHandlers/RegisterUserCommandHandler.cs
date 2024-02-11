@@ -2,34 +2,29 @@ using Application.Abstractions.Services.UserServices;
 using Application.CQRS.User.Commands;
 using Application.DTOs.User;
 using AutoMapper;
-using Domain.Repositories;
 using MediatR;
 
 namespace Application.CQRS.User.CommandHandlers;
 
-public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, UserAddDto>
+public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand>
 {
-    private readonly IUserRepository _userRepository;
-    private readonly IMapper _mapper;
     private readonly IUserAuthValidationService _authValidation;
+    private readonly IUserAuthService _authService;
 
-    public RegisterUserCommandHandler(IUserRepository userRepository, IMapper mapper, IUserAuthValidationService authValidation)
+
+    public RegisterUserCommandHandler(IUserAuthService userAuthService, IUserAuthValidationService authValidation, IMapper mapper)
     {
-        _userRepository = userRepository;
-        _mapper = mapper;
+        _authService = userAuthService;
         _authValidation = authValidation;
     }
 
-    public async Task<UserAddDto> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+    public async Task Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
-        var userAddDto = request.UserAddDto;
+        var userRegisterDto = request.UserRegisterDto;
         
         // Service can throw exceptions itself
-        _authValidation.ValidateRegistration(userAddDto);
+        _authValidation.ValidateRegistration(userRegisterDto);
 
-        var user = _mapper.Map<Domain.Entities.User>(userAddDto);
-        await _userRepository.AddAsync(user);
-
-        return userAddDto;
+        await _authService.Register(userRegisterDto);
     }
 }

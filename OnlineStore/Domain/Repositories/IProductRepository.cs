@@ -4,9 +4,11 @@ namespace Domain.Repositories;
 
 public interface IProductRepository
 {
-    Task<bool> Add(Product product);
-    Task<bool> Update(Product product);
-    Task<bool> Remove(Product product);
-    Task<List<Product>> GetAll();
-    Task<Product?> GetById(int id);
+    Task<bool> AddAsync(Product product);
+    Task<bool> UpdateAsync(Product product);
+    Task<bool> RemoveAsync(Product product);
+    Task<List<Product>> GetAllAsync();
+    Task<List<Product>> GetAllByCategoryIdAsync(int categoryId);
+    
+    Task<Product?> GetByIdAsync(int id);
 }

@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Infrastructure.Persistance.Migrations
+namespace Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class addedCartItems : Migration

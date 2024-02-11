@@ -1,6 +1,6 @@
-using Domain.Entities;
+using Application.DTOs.Product;
 using MediatR;
 
 namespace Application.CQRS.Products.Commands;
 
-public record AddProductCommand(Product Product) : IRequest<Product>;
+public record AddProductCommand(ProductAddDto ProductAddDto) : IRequest;

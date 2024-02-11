@@ -1,6 +1,6 @@
+using Domain.Entities;
+using MediatR;
+
 namespace Application.CQRS.Products.Queries;
 
-public class GetAllProductsByCategoryQuery
-{
-    
-}
+public record GetAllProductsByCategoryQuery(int CategoryId) : IRequest<List<Product>>;

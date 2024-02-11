@@ -1,6 +1,6 @@
+using Application.DTOs.CartItem;
+using MediatR;
+
 namespace Application.CQRS.Cart.Commands;
 
-public class AddProductToCartCommand
-{
-    
-}
+public record AddProductToCartCommand(CartItemAddDto CartItemAddDto) : IRequest;

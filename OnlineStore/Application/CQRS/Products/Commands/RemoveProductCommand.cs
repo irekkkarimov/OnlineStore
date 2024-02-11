@@ -1,6 +1,5 @@
+using MediatR;
+
 namespace Application.CQRS.Products.Commands;
 
-public class RemoveProductCommand
-{
-    
-}
+public record RemoveProductCommand(int ProductId) : IRequest;

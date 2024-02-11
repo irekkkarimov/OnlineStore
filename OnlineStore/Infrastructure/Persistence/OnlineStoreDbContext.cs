@@ -1,8 +1,7 @@
-using Application.DTOs.User;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Persistance;
+namespace Infrastructure.Persistence;
 
 public class OnlineStoreDbContext : DbContext
 {
@@ -27,8 +26,8 @@ public class OnlineStoreDbContext : DbContext
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(OnlineStoreDbContext).Assembly);
     }
 
-    public DbSet<Product> Products { get; set; }
-    public DbSet<ProductCategory> ProductCategories { get; set; }
-    public DbSet<User> Users { get; set; }
-    public DbSet<CartItem> CartItems { get; set; }
+    public DbSet<Product> Products { get; init; }
+    public DbSet<ProductCategory> ProductCategories { get; init; }
+    public DbSet<User> Users { get; init; }
+    public DbSet<CartItem> CartItems { get; init; }
 }
