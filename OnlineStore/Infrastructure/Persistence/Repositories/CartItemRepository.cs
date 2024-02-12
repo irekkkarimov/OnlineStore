@@ -1,6 +1,5 @@
 using Domain.Entities;
 using Domain.Repositories;
-using Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Repositories;
@@ -30,6 +29,20 @@ public class CartItemRepository : ICartItemRepository
         return true;
     }
 
+    public async Task<bool> RemoveFromCartByUserIdAsync(int userId)
+    {
+        var cartItemsToRemove = await _context.CartItems
+            .Where(i => i.UserId == userId)
+            .ToListAsync();
+
+        if (!cartItemsToRemove.Any())
+            return false;
+        
+        _context.RemoveRange(cartItemsToRemove);
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
     public async Task<List<CartItem>> GetAllAsync()
     {
         var cartItems = _context.CartItems
@@ -50,6 +63,7 @@ public class CartItemRepository : ICartItemRepository
 
     public async Task<List<CartItem>> GetByUserIdAsync(int userId)
     {
+        // TODO include for category in product
         var cartItemsOfUserQuery = _context.CartItems.Where(i => i.UserId == userId)
             .Include(i => i.User)
             .Include(i => i.Product);

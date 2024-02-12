@@ -4,9 +4,9 @@ namespace Domain.Repositories;
 
 public interface IProductCategoryRepository
 {
-    Task<bool> Add(ProductCategory productCategory);
-    Task<bool> Update(ProductCategory productCategory);
-    Task<bool> Remove(ProductCategory productCategory);
-    Task<List<ProductCategory>> GetAll();
-    Task<ProductCategory?> GetById(int id);
+    Task<bool> AddAsync(ProductCategory productCategory);
+    Task<bool> UpdateAsync(ProductCategory productCategory);
+    Task<bool> RemoveAsync(ProductCategory productCategory);
+    Task<List<ProductCategory>> GetAllAsync();
+    Task<ProductCategory?> GetByIdAsync(int id);
 }

@@ -33,4 +33,32 @@ public class ProductCategoryController : Controller
 
         return Ok(productCategories);
     }
+
+    [HttpGet]
+    [Route("{productCategoryId:int}")]
+    public async Task<IActionResult> Get(int productCategoryId)
+    {
+        var getProductCategoryQuery = new GetProductCategoryQuery(productCategoryId);
+        var productCategory = await _mediator.Send(getProductCategoryQuery);
+
+        return Ok(productCategory);
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> Remove(int productCategoryId)
+    {
+        var removeProductCategoryCommand = new RemoveProductCategoryCommand(productCategoryId);
+        await _mediator.Send(removeProductCategoryCommand);
+
+        return Ok(new { productCategoryId });
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> Update(ProductCategoryUpdateDto productCategoryUpdateDto)
+    {
+        var updateProductCategoryCommand = new UpdateProductCategoryCommand(productCategoryUpdateDto);
+        await _mediator.Send(updateProductCategoryCommand);
+
+        return Ok(new { productCategoryUpdateDto });
+    }
 }

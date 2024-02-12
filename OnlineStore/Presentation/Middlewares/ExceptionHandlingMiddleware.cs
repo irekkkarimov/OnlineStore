@@ -17,6 +17,7 @@ public class ExceptionHandlingMiddleware : IMiddleware
             var messageJson = JsonSerializer.Serialize(newJsonResult);
             Console.WriteLine(e.Message);
             context.Response.StatusCode = e.StatusCode;
+            context.Response.ContentType = "text/json";
             await context.Response.WriteAsync(messageJson);
         }
         catch (Exception e)
@@ -25,6 +26,7 @@ public class ExceptionHandlingMiddleware : IMiddleware
             var messageJson = JsonSerializer.Serialize(newJsonResult);
             Console.WriteLine(e.Message);
             context.Response.StatusCode = 500;
+            context.Response.ContentType = "text/json";
             await context.Response.WriteAsync(messageJson);
         }
     }

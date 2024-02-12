@@ -34,7 +34,7 @@ public class ProductValidationService : IProductValidationService
 
     private async Task ValidateProductCategoryId(int categoryId)
     {
-        var category = await _categoryRepository.GetById(categoryId);
+        var category = await _categoryRepository.GetByIdAsync(categoryId);
         if (category is null)
             throw new InvalidProductException("Invalid category id");
     }

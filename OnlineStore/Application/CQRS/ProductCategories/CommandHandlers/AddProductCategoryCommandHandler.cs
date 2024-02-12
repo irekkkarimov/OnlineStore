@@ -22,7 +22,7 @@ public class AddProductCategoryCommandHandler : IRequestHandler<AddProductCatego
         var productCategoryAddDto = request.ProductCategoryAddDto;
         var category = _mapper.Map<ProductCategory>(productCategoryAddDto);
 
-        await _productCategoryRepository.Add(category);
+        await _productCategoryRepository.AddAsync(category);
         
         return category;
     }

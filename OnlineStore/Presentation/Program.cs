@@ -53,6 +53,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 var app = builder.Build();
 
+// Specific
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

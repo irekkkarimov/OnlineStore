@@ -6,6 +6,7 @@ public interface ICartItemRepository
 {
     Task<bool> AddAsync(CartItem cartItem);
     Task<bool> RemoveFromCartAsync(CartItem cartItem);
+    Task<bool> RemoveFromCartByUserIdAsync(int userId);
     Task<List<CartItem>> GetAllAsync();
     Task<CartItem?> GetByIdAsync(int id);
     Task<List<CartItem>> GetByUserIdAsync(int userId);

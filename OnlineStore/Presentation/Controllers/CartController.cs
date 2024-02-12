@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using Application.CQRS.Cart.Commands;
+using Application.CQRS.Cart.Queries;
 using Application.DTOs.CartItem;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers;
 
+[Authorize]
 [Route("[controller]/[action]")]
 public class CartController : Controller
 {
@@ -20,7 +22,6 @@ public class CartController : Controller
     }
 
 
-    [Authorize]
     [HttpPost]
     public async Task<IActionResult> Add(int productId)
     {
@@ -38,8 +39,7 @@ public class CartController : Controller
         return Ok(new { productId });
     }
 
-    [Authorize]
-    [HttpPost]
+    [HttpDelete]
     public async Task<IActionResult> Remove(int productId)
     {
         var userIdClaim = GetUserIdClaim();
@@ -54,6 +54,28 @@ public class CartController : Controller
         var removeProductFroMCartCommand = new RemoveProductFromCartCommand(cartItemRemoveDto);
         await _mediator.Send(removeProductFroMCartCommand);
         return Ok(new { productId });
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetUserCart()
+    {
+        var userIdClaim = GetUserIdClaim();
+        var userId = int.Parse(userIdClaim!.Value);
+        var getUserCartItemsQuery = new GetUserCartItemsQuery(userId);
+        var userCartItems = await _mediator.Send(getUserCartItemsQuery);
+
+        return Ok(userCartItems);
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> ClearUserCart()
+    {
+        var userIdClaim = GetUserIdClaim();
+        var userId = int.Parse(userIdClaim!.Value);
+        var removeUserCartItemsCommand = new RemoveUserCartItemsCommand(userId);
+        await _mediator.Send(removeUserCartItemsCommand);
+
+        return Ok();
     }
 
     private Claim? GetUserIdClaim()

@@ -20,6 +20,7 @@ public class AddProductToCartCommandHandler : IRequestHandler<AddProductToCartCo
 
     public async Task Handle(AddProductToCartCommand request, CancellationToken cancellationToken)
     {
+        // TODO product id validation
         var cartItemAddDto = request.CartItemAddDto;
         var allCartItems = await _cartItemRepository.GetAllAsync();
 

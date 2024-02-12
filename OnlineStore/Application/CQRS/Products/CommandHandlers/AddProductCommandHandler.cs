@@ -19,6 +19,7 @@ public class AddProductCommandHandler : IRequestHandler<AddProductCommand>
 
     public async Task Handle(AddProductCommand request, CancellationToken cancellationToken)
     {
+        // TODO validate product category id
         var productAddDto = request.ProductAddDto;
 
         var product = _mapper.Map<Product>(productAddDto);

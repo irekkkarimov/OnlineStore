@@ -26,6 +26,7 @@ public class ProductController : Controller
     }
 
     [HttpGet]
+    [Route("{productId:int}")]
     public async Task<IActionResult> Get(int productId)
     {
         var getProductByIdQuery = new GetProductByIdQuery(productId);
@@ -52,7 +53,7 @@ public class ProductController : Controller
         return Ok(products);
     }
 
-    [HttpPost]
+    [HttpDelete]
     public async Task<IActionResult> Remove(int productId)
     {
         var removeProductCommand = new RemoveProductCommand(productId);
