@@ -1,3 +1,4 @@
+using Application.Abstractions.Services.ShopServices;
 using Application.CQRS.Cart.Queries;
 using Application.DTOs.CartItem;
 using AutoMapper;
@@ -9,18 +10,20 @@ namespace Application.CQRS.Cart.QueryHandlers;
 public class GetUserCartItemsQueryHandler : IRequestHandler<GetUserCartItemsQuery, List<CartItemGetDto>>
 {
     private readonly ICartItemRepository _cartItemRepository;
+    private readonly ICartItemValidationService _validationService;
     private readonly IMapper _mapper;
 
-    public GetUserCartItemsQueryHandler(ICartItemRepository cartItemRepository, IMapper mapper)
+    public GetUserCartItemsQueryHandler(ICartItemRepository cartItemRepository, IMapper mapper, ICartItemValidationService validationService)
     {
         _cartItemRepository = cartItemRepository;
         _mapper = mapper;
+        _validationService = validationService;
     }
 
     public async Task<List<CartItemGetDto>> Handle(GetUserCartItemsQuery request, CancellationToken cancellationToken)
     {
-        // TODO validation for user for existence
         var userId = request.UserId;
+        await _validationService.ValidateGettingByUserIdAsync(userId);
 
         var cartItems = await _cartItemRepository.GetByUserIdAsync(userId);
         var cartItemGetDtos = cartItems

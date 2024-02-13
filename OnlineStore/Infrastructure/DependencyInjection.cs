@@ -4,6 +4,8 @@ using Domain.Repositories;
 using Infrastructure.Persistence;
 using Infrastructure.Persistence.Repositories;
 using Infrastructure.Services.ShopServices;
+using Infrastructure.Services.ShopServices.HandlerServices;
+using Infrastructure.Services.ShopServices.ValidationServices;
 using Infrastructure.Services.UserServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -36,6 +38,8 @@ public static class DependencyInjection
         services.AddScoped<IUserAuthValidationService, UserAuthValidationService>();
 
         services.AddScoped<IUserAuthService, UserAuthService>();
+
+        services.AddScoped<ICartItemValidationService, CartItemValidationService>();
 
         return services;
     }

@@ -7,16 +7,19 @@ namespace Application.CQRS.Products.QueryHandlers;
 public class GetProductCountForCategoryQueryHandler : IRequestHandler<GetProductCountForCategoryQuery, int>
 {
     private readonly IProductHandlerService _productHandlerService;
+    private readonly IProductValidationService _productValidationService;
 
-    public GetProductCountForCategoryQueryHandler(IProductHandlerService productHandlerService)
+    public GetProductCountForCategoryQueryHandler(IProductHandlerService productHandlerService, IProductValidationService productValidationService)
     {
         _productHandlerService = productHandlerService;
+        _productValidationService = productValidationService;
     }
 
     public async Task<int> Handle(GetProductCountForCategoryQuery request, CancellationToken cancellationToken)
     {
-        // TODO validation for category id for existence
         var requestedCategoryId = request.CategoryId;
+        await _productValidationService.ValidateCategoryForCountAsync(requestedCategoryId);
+        
         var productCountForEachCategory = await _productHandlerService.CalculateProductCountForEachCategory();
 
         return productCountForEachCategory

@@ -3,7 +3,7 @@ using Application.Abstractions.Services.ShopServices;
 using Application.DTOs.Product;
 using Domain.Repositories;
 
-namespace Infrastructure.Services.ShopServices;
+namespace Infrastructure.Services.ShopServices.ValidationServices;
 
 public class ProductValidationService : IProductValidationService
 {
@@ -17,13 +17,18 @@ public class ProductValidationService : IProductValidationService
     public async Task ValidateAddingAsync(ProductAddDto productAddDto)
     {
         ValidateProductName(productAddDto.Name);
-        await ValidateProductCategoryId(productAddDto.CategoryId);
+        await ValidateProductCategoryIdAsync(productAddDto.CategoryId);
     }
 
     public async Task ValidateUpdateAsync(ProductUpdateDto productUpdateDto)
     {
         ValidateProductName(productUpdateDto.Name);
-        await ValidateProductCategoryId(productUpdateDto.CategoryId);
+        await ValidateProductCategoryIdAsync(productUpdateDto.CategoryId);
+    }
+
+    public async Task ValidateCategoryForCountAsync(int productCategoryId)
+    {
+        await ValidateProductCategoryIdAsync(productCategoryId);
     }
 
     private void ValidateProductName(string productName)
@@ -32,7 +37,7 @@ public class ProductValidationService : IProductValidationService
             throw new InvalidProductException("Invalid product name");
     }
 
-    private async Task ValidateProductCategoryId(int categoryId)
+    private async Task ValidateProductCategoryIdAsync(int categoryId)
     {
         var category = await _categoryRepository.GetByIdAsync(categoryId);
         if (category is null)

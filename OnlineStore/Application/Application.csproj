@@ -22,6 +22,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="CQRS\Purchase\Queries\" />
+      <Folder Include="CQRS\Purchase\QueryHandlers\" />
       <Folder Include="CQRS\User\Queries\" />
       <Folder Include="CQRS\User\QueryHandlers\" />
     </ItemGroup>

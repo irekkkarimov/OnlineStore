@@ -2,7 +2,7 @@ using Application.Abstractions.Services.ShopServices;
 using Domain.Entities;
 using Domain.Repositories;
 
-namespace Infrastructure.Services.ShopServices;
+namespace Infrastructure.Services.ShopServices.HandlerServices;
 
 public class ProductHandlerService : IProductHandlerService
 {

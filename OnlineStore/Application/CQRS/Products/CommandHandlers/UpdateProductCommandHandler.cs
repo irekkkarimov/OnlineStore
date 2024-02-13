@@ -20,7 +20,6 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand>
 
     public async Task Handle(UpdateProductCommand request, CancellationToken cancellationToken)
     {
-        // TODO validation for product update DTO
         var productUpdateDto = request.ProductUpdateDto;
         await _productValidationService.ValidateUpdateAsync(productUpdateDto);
 
