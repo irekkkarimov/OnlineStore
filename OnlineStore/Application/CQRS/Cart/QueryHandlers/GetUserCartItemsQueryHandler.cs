@@ -1,4 +1,5 @@
 using Application.Abstractions.Services.ShopServices;
+using Application.Abstractions.Services.ShopServices.ValidationServices;
 using Application.CQRS.Cart.Queries;
 using Application.DTOs.CartItem;
 using AutoMapper;

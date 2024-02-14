@@ -1,6 +1,6 @@
 using Application.DTOs.Product;
 
-namespace Application.Abstractions.Services.ShopServices;
+namespace Application.Abstractions.Services.ShopServices.ValidationServices;
 
 public interface IProductValidationService
 {

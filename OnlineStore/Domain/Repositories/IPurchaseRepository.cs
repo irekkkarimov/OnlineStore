@@ -8,5 +8,5 @@ public interface IPurchaseRepository
     Task<bool> RemoveAsync(Purchase purchase);
     Task<List<Purchase>> GetAllAsync();
     Task<Purchase?> GetByIdAsync(int id);
-    Task<List<Purchase>> GetAllByUserIdAsync(int id);
+    Task<List<Purchase>> GetAllByUserIdAsync(int userId);
 }

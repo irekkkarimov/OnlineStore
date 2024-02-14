@@ -59,8 +59,6 @@ public class UserAuthService : IUserAuthService
             new("username", user.Username)
         };
 
-        Console.WriteLine(_configuration.GetSection("JWT_SECRET_TOKEN").Value!);
-
         var key = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(_configuration.GetSection("JWT_SECRET_TOKEN").Value!));
 

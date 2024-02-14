@@ -1,5 +1,6 @@
 using Application.Abstractions.CustomExceptions.Products;
 using Application.Abstractions.Services.ShopServices;
+using Application.Abstractions.Services.ShopServices.ValidationServices;
 using Application.CQRS.Products.Commands;
 using Domain.Repositories;
 using MediatR;

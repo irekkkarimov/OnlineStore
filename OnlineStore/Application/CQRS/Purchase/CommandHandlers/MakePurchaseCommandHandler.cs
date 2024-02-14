@@ -1,4 +1,6 @@
 using Application.Abstractions.Services.ShopServices;
+using Application.Abstractions.Services.ShopServices.HandlerServices;
+using Application.Abstractions.Services.ShopServices.ValidationServices;
 using Application.CQRS.Purchase.Commands;
 using Application.DTOs.Purchase;
 using MediatR;

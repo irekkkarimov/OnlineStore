@@ -1,13 +1,16 @@
 using System.Security.Claims;
 using Application.Abstractions.CustomExceptions.UserExceptions;
 using Application.CQRS.Purchase.Commands;
+using Application.CQRS.Purchase.Queries;
 using Application.DTOs.Purchase;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers;
 
+[Authorize]
 [Route("[controller]/[action]")]
 public class PurchaseController : Controller
 {
@@ -21,7 +24,7 @@ public class PurchaseController : Controller
         _mapper = mapper;
         _httpContext = httpContextAccessor.HttpContext!;
     }
-
+    
     [HttpPost]
     public async Task<IActionResult> MakePurchase([FromBody] PurchaseAddPostDto purchaseAddPostDto)
     {
@@ -34,8 +37,18 @@ public class PurchaseController : Controller
 
         return Ok(purchaseResultDto);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetUserPurchaseList()
+    {
+        var userId = GetUserId();
+        var getUserPurchaseListQuery = new GetUserPurchaseListQuery(userId);
+        var purchaseList = await _mediator.Send(getUserPurchaseListQuery);
+
+        return Ok(purchaseList);
+    }
     
-    [NonAction]
+    
     private int GetUserId()
     {
         var userIdClaim = _httpContext.User.Claims.FirstOrDefault(i => i.Type.Equals("userid"));

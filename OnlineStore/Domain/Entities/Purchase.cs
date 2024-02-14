@@ -6,7 +6,9 @@ public class Purchase : Entity
 {
     public int UserId { get; set; }
     public User User { get; set; } = null!;
+    public int ProductId { get; set; }
     public Product Product { get; set; } = null!;
-    public int TotalPrice { get; set; }
-    public int Discount { get; set; }
+    public string? PromoCode { get; set; }
+    public double TotalPrice { get; set; }
+    public double Discount { get; set; }
 }

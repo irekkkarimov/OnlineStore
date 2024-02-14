@@ -1,5 +1,6 @@
 using Application.Abstractions.CustomExceptions.CartItemExceptions;
 using Application.Abstractions.Services.ShopServices;
+using Application.Abstractions.Services.ShopServices.ValidationServices;
 using Application.CQRS.Cart.Commands;
 using AutoMapper;
 using Domain.Entities;

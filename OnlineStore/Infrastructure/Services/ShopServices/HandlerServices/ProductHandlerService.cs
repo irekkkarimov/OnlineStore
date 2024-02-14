@@ -1,4 +1,5 @@
 using Application.Abstractions.Services.ShopServices;
+using Application.Abstractions.Services.ShopServices.HandlerServices;
 using Domain.Entities;
 using Domain.Repositories;
 

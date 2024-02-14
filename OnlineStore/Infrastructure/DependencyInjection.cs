@@ -1,4 +1,6 @@
 using Application.Abstractions.Services.ShopServices;
+using Application.Abstractions.Services.ShopServices.HandlerServices;
+using Application.Abstractions.Services.ShopServices.ValidationServices;
 using Application.Abstractions.Services.UserServices;
 using Domain.Repositories;
 using Infrastructure.Persistence;
@@ -29,17 +31,20 @@ public static class DependencyInjection
         services.AddScoped<IUserRepository, UserRepository>();
 
         services.AddScoped<ICartItemRepository, CartItemRepository>();
+
+        services.AddScoped<IPurchaseRepository, PurchaseRepository>();
         
         // Services
         services.AddScoped<IProductHandlerService, ProductHandlerService>();
-
         services.AddScoped<IProductValidationService, ProductValidationService>();
         
         services.AddScoped<IUserAuthValidationService, UserAuthValidationService>();
-
         services.AddScoped<IUserAuthService, UserAuthService>();
 
         services.AddScoped<ICartItemValidationService, CartItemValidationService>();
+
+        services.AddScoped<IPurchaseHandlerService, PurchaseHandlerService>();
+        services.AddScoped<IPurchaseValidationService, PurchaseValidationService>();
 
         return services;
     }

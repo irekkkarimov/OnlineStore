@@ -1,4 +1,5 @@
 using Application.Abstractions.Services.ShopServices;
+using Application.Abstractions.Services.ShopServices.ValidationServices;
 using Application.CQRS.Products.Commands;
 using AutoMapper;
 using Domain.Entities;

@@ -1,6 +1,6 @@
 using Application.DTOs.Purchase;
 
-namespace Application.Abstractions.Services.ShopServices;
+namespace Application.Abstractions.Services.ShopServices.HandlerServices;
 
 public interface IPurchaseHandlerService
 {

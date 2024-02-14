@@ -1,5 +1,6 @@
 using Application.Abstractions.CustomExceptions.Products;
 using Application.Abstractions.Services.ShopServices;
+using Application.Abstractions.Services.ShopServices.ValidationServices;
 using Application.DTOs.Product;
 using Domain.Repositories;
 

@@ -30,4 +30,7 @@ public class OnlineStoreDbContext : DbContext
     public DbSet<ProductCategory> ProductCategories { get; init; }
     public DbSet<User> Users { get; init; }
     public DbSet<CartItem> CartItems { get; init; }
+    public DbSet<Purchase> Purchases { get; set; }
+    public DbSet<PromoCode> PromoCodes { get; set; }
+    public DbSet<Session> Sessions { get; set; }
 }
