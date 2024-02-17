@@ -13,31 +13,37 @@ public class PurchaseHandlerService : IPurchaseHandlerService
     private readonly IPurchaseRepository _purchaseRepository;
     private readonly IUserRepository _userRepository;
     private readonly IProductRepository _productRepository;
+    private readonly IPromoCodeHandlerService _promoCodeHandlerService;
     private readonly IMapper _mapper;
 
-    public PurchaseHandlerService(IPurchaseRepository purchaseRepository, IUserRepository userRepository, IProductRepository productRepository, IMapper mapper)
+    public PurchaseHandlerService(IPurchaseRepository purchaseRepository, IUserRepository userRepository, IProductRepository productRepository, IMapper mapper, IPromoCodeHandlerService promoCodeHandlerService)
     {
         _purchaseRepository = purchaseRepository;
         _userRepository = userRepository;
         _productRepository = productRepository;
         _mapper = mapper;
+        _promoCodeHandlerService = promoCodeHandlerService;
     }
 
     public async Task<PurchaseResultDto> MakePurchaseAsync(PurchaseAddDto purchaseAddDto)
     {
-        // Did not implement PromoCode discount
         var user = await _userRepository.GetByIdAsync(purchaseAddDto.UserId);
         var product = await _productRepository.GetByIdAsync(purchaseAddDto.ProductId);
+        
+        var discountFromCode = await _promoCodeHandlerService.TryUse(purchaseAddDto.PromoCode);
         var personalDiscount = user!.PersonalDiscount;
         var defaultPrice = product!.Price;
-        var discountReversed = 1 - personalDiscount;
-        var totalPrice = defaultPrice * discountReversed;
+        
+        var personalDiscountReversed = 1 - personalDiscount;
+        var promoCodeDiscountReversed = 1 - discountFromCode;
+        var totalDiscountReversed = personalDiscountReversed * promoCodeDiscountReversed;
+        var totalPrice = defaultPrice * totalDiscountReversed;
         
         if (totalPrice < 0)
             throw new InvalidPurchaseException("Total price is less than 0");
 
         var purchase = _mapper.Map<Purchase>(purchaseAddDto);
-        purchase.Discount = personalDiscount;
+        purchase.Discount = 1 - totalDiscountReversed;
         purchase.TotalPrice = totalPrice;
 
         await _purchaseRepository.AddAsync(purchase);

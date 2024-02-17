@@ -2,7 +2,7 @@ namespace Application.Abstractions.CustomExceptions.Abstractions;
 
 public abstract class CustomException : Exception
 {
-    public int StatusCode { get; set; }
+    public int StatusCode { get; }
 
     protected CustomException(string message, ExceptionType exceptionType) : base(message)
     {
@@ -15,5 +15,6 @@ public enum ExceptionType
     Unauthorized = 401,
     Forbidden = 403,
     BadRequest = 400,
-    NotFound = 404
+    NotFound = 404,
+    Conflict = 409
 }

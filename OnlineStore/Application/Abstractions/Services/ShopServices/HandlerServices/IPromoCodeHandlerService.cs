@@ -9,5 +9,5 @@ public interface IPromoCodeHandlerService
     Task<bool> Activate(string code);
     Task<bool> Deactivate(int id);
     Task<bool> Deactivate(string code);
-    Task<bool> TryUse(string code, out double discount);
+    Task<double> TryUse(string code);
 }

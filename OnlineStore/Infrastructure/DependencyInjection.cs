@@ -33,6 +33,8 @@ public static class DependencyInjection
         services.AddScoped<ICartItemRepository, CartItemRepository>();
 
         services.AddScoped<IPurchaseRepository, PurchaseRepository>();
+
+        services.AddScoped<IPromoCodeRepository, PromoCodeRepository>();
         
         // Services
         services.AddScoped<IProductHandlerService, ProductHandlerService>();
@@ -46,6 +48,9 @@ public static class DependencyInjection
         services.AddScoped<IPurchaseHandlerService, PurchaseHandlerService>();
         services.AddScoped<IPurchaseValidationService, PurchaseValidationService>();
 
+        services.AddScoped<IPromoCodeHandlerService, PromoCodeHandlerService>();
+        services.AddScoped<IPromoCodeValidationService, PromoCodeValidationService>();
+        
         return services;
     }
 }

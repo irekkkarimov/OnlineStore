@@ -1,10 +1,11 @@
 using Application.Abstractions.CustomExceptions.Abstractions;
+using Application.Abstractions.CustomExceptions.Abstractions.StatusCodeCustomExceptions;
 
 namespace Application.Abstractions.CustomExceptions.UserExceptions;
 
-public class WrongPasswordException : CustomException
+public class WrongPasswordException : NotFoundException
 {
-    public WrongPasswordException(string message) : base(message, ExceptionType.Unauthorized)
+    public WrongPasswordException(string message) : base(message)
     {
     }
 }

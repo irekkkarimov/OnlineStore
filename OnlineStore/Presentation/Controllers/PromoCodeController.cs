@@ -1,3 +1,5 @@
+using Application.CQRS.PromoCode.Commands;
+using Application.CQRS.PromoCode.Queries;
 using Application.DTOs.PromoCode;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -17,26 +19,38 @@ public class PromoCodeController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(PromoCodeAddDto promoCodeAddDto)
+    public async Task<IActionResult> Create([FromBody]  PromoCodeAddDto promoCodeAddDto)
     {
-        
+        var createPromoCodeCommand = new CreatePromoCodeCommand(promoCodeAddDto);
+        await _mediator.Send(createPromoCodeCommand);
+
+        return Ok(promoCodeAddDto);
     }
 
     [HttpPatch]
     public async Task<IActionResult> Activate(int id)
     {
-        
+        var activatePromoCodeCommand = new ActivatePromoCodeCommand(id);
+        await _mediator.Send(activatePromoCodeCommand);
+
+        return Ok(new { promoCodeId = id });
     }
 
-    [HttpPut]
+    [HttpPatch]
     public async Task<IActionResult> Deactivate(int id)
     {
-        
+        var deactivatePromoCodeCommand = new DeactivatePromoCodeCommand(id);
+        await _mediator.Send(deactivatePromoCodeCommand);
+
+        return Ok(new { promoCodeId = id });
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        
+        var getAllPromoCodesQuery = new GetAllPromoCodesQuery();
+        var allPromoCodeGetDtos = await _mediator.Send(getAllPromoCodesQuery);
+
+        return Ok(allPromoCodeGetDtos);
     }
 }

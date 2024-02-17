@@ -7,7 +7,7 @@ using Microsoft.OpenApi.Models;
 using Presentation.Middlewares;
 using Swashbuckle.AspNetCore.Filters;
 
-const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
+// const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddUserSecrets<string>();

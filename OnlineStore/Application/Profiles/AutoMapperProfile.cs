@@ -32,5 +32,6 @@ public class AutoMapperProfile : Profile
         CreateMap<Purchase, PurchaseGetDto>();
 
         CreateMap<PromoCodeAddDto, PromoCode>();
+        CreateMap<PromoCode, PromoCodeGetDto>();
     }
 }

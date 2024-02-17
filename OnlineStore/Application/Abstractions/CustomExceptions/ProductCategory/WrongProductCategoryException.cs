@@ -1,10 +1,11 @@
 using Application.Abstractions.CustomExceptions.Abstractions;
+using Application.Abstractions.CustomExceptions.Abstractions.StatusCodeCustomExceptions;
 
 namespace Application.Abstractions.CustomExceptions.ProductCategory;
 
-public class WrongProductCategoryException : CustomException
+public class WrongProductCategoryException : BadRequestException
 {
-    public WrongProductCategoryException(string message) : base(message, ExceptionType.BadRequest)
+    public WrongProductCategoryException(string message) : base(message)
     {
     }
 }

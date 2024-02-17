@@ -1,14 +1,13 @@
-using Domain.Abstraction;
+namespace Application.DTOs.PromoCode;
 
-namespace Domain.Entities;
-
-public class PromoCode : Entity
+public class PromoCodeGetDto
 {
-    public string Code { get; set; } = null!;
+    public int Id { get; set; }
+    public string? Code { get; set; } = null!;
     public double Discount { get; set; }
     public int LimitOfUsages { get; set; }
     public int Usages { get; set; }
-    public bool IsActive { get; set; } = true;
+    public bool IsActive { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public DateTime ExpiresAt { get; set; }
 }
