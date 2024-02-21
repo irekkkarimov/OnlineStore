@@ -2,6 +2,7 @@ using Application.CQRS.ProductCategories.Commands;
 using Application.CQRS.ProductCategories.Queries;
 using Application.DTOs.ProductCategory;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers;
@@ -16,6 +17,7 @@ public class ProductCategoryController : Controller
         _mediator = mediator;
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<IActionResult> Add(ProductCategoryAddDto productCategoryAddDto)
     {
@@ -44,6 +46,7 @@ public class ProductCategoryController : Controller
         return Ok(productCategory);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete]
     public async Task<IActionResult> Remove(int productCategoryId)
     {
@@ -53,6 +56,7 @@ public class ProductCategoryController : Controller
         return Ok(new { productCategoryId });
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPut]
     public async Task<IActionResult> Update(ProductCategoryUpdateDto productCategoryUpdateDto)
     {

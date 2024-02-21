@@ -4,6 +4,7 @@ using Application.DTOs.ProductCategory;
 using Application.DTOs.PromoCode;
 using Application.DTOs.Purchase;
 using Application.DTOs.User;
+using Application.DTOs.UserBalance;
 using AutoMapper;
 using Domain.Entities;
 
@@ -21,6 +22,7 @@ public class AutoMapperProfile : Profile
         CreateMap<ProductUpdateDto, Product>();
 
         CreateMap<UserRegisterDto, User>();
+        CreateMap<User, UserGetDto>();
 
         CreateMap<CartItem, CartItemGetDto>();
         CreateMap<CartItemAddDto, CartItem>();
@@ -33,5 +35,9 @@ public class AutoMapperProfile : Profile
 
         CreateMap<PromoCodeAddDto, PromoCode>();
         CreateMap<PromoCode, PromoCodeGetDto>();
+
+        CreateMap<UserBalance, GetUserBalanceDto>();
+        CreateMap<AddToUserBalanceDto, UserBalance>();
+        CreateMap<SubtractFromUserBalanceDto, UserBalance>();
     }
 }

@@ -35,6 +35,8 @@ public static class DependencyInjection
         services.AddScoped<IPurchaseRepository, PurchaseRepository>();
 
         services.AddScoped<IPromoCodeRepository, PromoCodeRepository>();
+
+        services.AddScoped<IUserBalanceRepository, UserBalanceRepository>();
         
         // Services
         services.AddScoped<IProductHandlerService, ProductHandlerService>();
@@ -50,6 +52,9 @@ public static class DependencyInjection
 
         services.AddScoped<IPromoCodeHandlerService, PromoCodeHandlerService>();
         services.AddScoped<IPromoCodeValidationService, PromoCodeValidationService>();
+
+        services.AddScoped<IUserBalanceHandlerService, UserBalanceHandlerService>();
+        services.AddScoped<IUserBalanceValidationService, UserBalanceValidationService>();
         
         return services;
     }

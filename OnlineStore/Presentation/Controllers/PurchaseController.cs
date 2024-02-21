@@ -48,7 +48,7 @@ public class PurchaseController : Controller
         return Ok(purchaseList);
     }
     
-    
+    [NonAction]
     private int GetUserId()
     {
         var userIdClaim = _httpContext.User.Claims.FirstOrDefault(i => i.Type.Equals("userid"));

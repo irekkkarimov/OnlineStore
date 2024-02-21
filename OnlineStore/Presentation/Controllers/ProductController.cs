@@ -2,6 +2,7 @@ using Application.CQRS.Products.Commands;
 using Application.CQRS.Products.Queries;
 using Application.DTOs.Product;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers;
@@ -16,6 +17,7 @@ public class ProductController : Controller
         _mediator = mediator;
     }
 
+    [Authorize(Roles = "Admin,Seller")]
     [HttpPost]
     public async Task<IActionResult> Add(ProductAddDto productAddDto)
     {
@@ -53,15 +55,18 @@ public class ProductController : Controller
         return Ok(products);
     }
 
+    [Authorize(Roles = "Admin,Seller")]
     [HttpDelete]
     public async Task<IActionResult> Remove(int productId)
     {
+        // TODO save seller's id when adding a product to make remove access
         var removeProductCommand = new RemoveProductCommand(productId);
         await _mediator.Send(removeProductCommand);
 
         return Ok(new { productId });
     }
 
+    [Authorize(Roles = "Admin,Seller")]
     [HttpPut]
     public async Task<IActionResult> Update([FromBody] ProductUpdateDto productUpdateDto)
     {

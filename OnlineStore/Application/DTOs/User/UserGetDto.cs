@@ -1,12 +1,11 @@
 using Domain.Abstraction;
 
-namespace Domain.Entities;
+namespace Application.DTOs.User;
 
-public class User : Entity
+public class UserGetDto
 {
     public string Username { get; set; } = null!;
     public string Email { get; set; } = null!;
-    public string Password { get; set; } = null!;
     public double PersonalDiscount { get; set; }
-    public UserRole Role { get; set; } = UserRole.Costumer;
+    public UserRole Role { get; set; }
 }

@@ -25,7 +25,7 @@ public class UserAuthService : IUserAuthService
         _mapper = mapper;
     }
 
-    public async Task Register(UserRegisterDto userRegisterDto)
+    public async Task<int> Register(UserRegisterDto userRegisterDto)
     {
         var allUsers = await _userRepository.GetAllAsync();
 
@@ -34,6 +34,7 @@ public class UserAuthService : IUserAuthService
 
         var newUser = _mapper.Map<User>(userRegisterDto);
         await _userRepository.AddAsync(newUser);
+        return newUser.Id;
     }
 
     public async Task<string> Login(UserLoginDto userLoginDto)
@@ -56,7 +57,8 @@ public class UserAuthService : IUserAuthService
         {
             new("userid", user.Id.ToString()),
             new("email", user.Email),
-            new("username", user.Username)
+            new("username", user.Username),
+            new Claim("role", user.Role.ToString())
         };
 
         var key = new SymmetricSecurityKey(

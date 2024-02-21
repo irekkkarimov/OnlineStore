@@ -45,6 +45,7 @@ public class PurchaseHandlerService : IPurchaseHandlerService
         var purchase = _mapper.Map<Purchase>(purchaseAddDto);
         purchase.Discount = 1 - totalDiscountReversed;
         purchase.TotalPrice = totalPrice;
+        // TODO use user balance for purchases
 
         await _purchaseRepository.AddAsync(purchase);
         var purchaseResultDto = _mapper.Map<PurchaseResultDto>(purchase);

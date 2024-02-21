@@ -33,4 +33,5 @@ public class OnlineStoreDbContext : DbContext
     public DbSet<Purchase> Purchases { get; init; }
     public DbSet<PromoCode> PromoCodes { get; init; }
     public DbSet<Session> Sessions { get; init; }
+    public DbSet<UserBalance> UserBalances { get; init; }
 }

@@ -55,7 +55,7 @@ public class CartController : Controller
         await _mediator.Send(removeProductFroMCartCommand);
         return Ok(new { productId });
     }
-
+    
     [HttpGet]
     public async Task<IActionResult> GetUserCart()
     {
@@ -78,6 +78,7 @@ public class CartController : Controller
         return Ok();
     }
 
+    [NonAction]
     private Claim? GetUserIdClaim()
     {
         return _httpContext.User.Claims.FirstOrDefault(i => i.Type.Equals("userid"));

@@ -18,6 +18,7 @@ public class PromoCodeController : Controller
         _mediator = mediator;
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<IActionResult> Create([FromBody]  PromoCodeAddDto promoCodeAddDto)
     {
@@ -27,6 +28,7 @@ public class PromoCodeController : Controller
         return Ok(promoCodeAddDto);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPatch]
     public async Task<IActionResult> Activate(int id)
     {
@@ -36,6 +38,7 @@ public class PromoCodeController : Controller
         return Ok(new { promoCodeId = id });
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPatch]
     public async Task<IActionResult> Deactivate(int id)
     {
@@ -45,6 +48,7 @@ public class PromoCodeController : Controller
         return Ok(new { promoCodeId = id });
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
