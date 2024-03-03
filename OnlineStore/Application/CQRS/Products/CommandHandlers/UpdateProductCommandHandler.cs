@@ -29,6 +29,9 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand>
         if (productFromDb is null)
             throw new WrongProduct("Product does not exist");
 
+        if (productFromDb.UserId != productUpdateDto.UserId)
+            throw new ForbiddenProductAccessException("User has no access to this product");
+
         productFromDb.Name = productUpdateDto.Name;
         productFromDb.CategoryId = productUpdateDto.CategoryId;
 

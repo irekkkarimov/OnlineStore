@@ -16,12 +16,14 @@ public class RemoveProductCommandHandler : IRequestHandler<RemoveProductCommand>
 
     public async Task Handle(RemoveProductCommand request, CancellationToken cancellationToken)
     {
-        var productId = request.ProductId;
-
-        var productToRemove = await _productRepository.GetByIdAsync(productId);
-
+        var productRemoveDto = request.ProductRemoveDto;
+        var productToRemove = await _productRepository.GetByIdAsync(productRemoveDto.ProductId);
+        
         if (productToRemove is null)
             throw new WrongProduct("Product does not exist");
+
+        if (productToRemove.UserId != productRemoveDto.UserId)
+            throw new ForbiddenProductAccessException("User has no access to this product");
 
         await _productRepository.RemoveAsync(productToRemove);
     }

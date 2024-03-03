@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: onlinestore
-          image: onlinestore
+          image: irekkkarimov/onlinestore:latest

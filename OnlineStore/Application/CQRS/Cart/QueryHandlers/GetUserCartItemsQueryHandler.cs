@@ -2,6 +2,7 @@ using Application.Abstractions.Services.ShopServices;
 using Application.Abstractions.Services.ShopServices.ValidationServices;
 using Application.CQRS.Cart.Queries;
 using Application.DTOs.CartItem;
+using Application.DTOs.Product;
 using AutoMapper;
 using Domain.Repositories;
 using MediatR;
@@ -25,7 +26,7 @@ public class GetUserCartItemsQueryHandler : IRequestHandler<GetUserCartItemsQuer
     {
         var userId = request.UserId;
         await _validationService.ValidateGettingByUserIdAsync(userId);
-
+        
         var cartItems = await _cartItemRepository.GetByUserIdAsync(userId);
         var cartItemGetDtos = cartItems
             .Select(i => _mapper.Map<CartItemGetDto>(i))

@@ -1,6 +1,8 @@
+using Application.Abstractions.CustomExceptions.UserExceptions;
 using Application.CQRS.Products.Commands;
 using Application.CQRS.Products.Queries;
 using Application.DTOs.Product;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,16 +13,23 @@ namespace Presentation.Controllers;
 public class ProductController : Controller
 {
     private readonly IMediator _mediator;
+    private readonly IMapper _mapper;
+    private readonly HttpContext _httpContext;
 
-    public ProductController(IMediator mediator)
+    public ProductController(IMediator mediator, IHttpContextAccessor httpContextAccessor, IMapper mapper)
     {
         _mediator = mediator;
+        _mapper = mapper;
+        _httpContext = httpContextAccessor.HttpContext!;
     }
 
     [Authorize(Roles = "Admin,Seller")]
     [HttpPost]
-    public async Task<IActionResult> Add(ProductAddDto productAddDto)
+    public async Task<IActionResult> Add([FromBody] ProductAddDtoHttp productAddDtoHttp)
     {
+        var userId = GetUserId();
+        var productAddDto = _mapper.Map<ProductAddDto>(productAddDtoHttp);
+        productAddDto.UserId = userId;
         var addProductCommand = new AddProductCommand(productAddDto);
         await _mediator.Send(addProductCommand);
 
@@ -59,8 +68,12 @@ public class ProductController : Controller
     [HttpDelete]
     public async Task<IActionResult> Remove(int productId)
     {
-        // TODO save seller's id when adding a product to make remove access
-        var removeProductCommand = new RemoveProductCommand(productId);
+        var productRemoveDto = new ProductRemoveDto
+        {
+            UserId = GetUserId(),
+            ProductId = productId
+        };
+        var removeProductCommand = new RemoveProductCommand(productRemoveDto);
         await _mediator.Send(removeProductCommand);
 
         return Ok(new { productId });
@@ -68,8 +81,10 @@ public class ProductController : Controller
 
     [Authorize(Roles = "Admin,Seller")]
     [HttpPut]
-    public async Task<IActionResult> Update([FromBody] ProductUpdateDto productUpdateDto)
+    public async Task<IActionResult> Update([FromBody] ProductUpdateDtoHttp productUpdateDtoHttp)
     {
+        var productUpdateDto = _mapper.Map<ProductUpdateDto>(productUpdateDtoHttp);
+        productUpdateDto.UserId = GetUserId();
         var updateProductCommand = new UpdateProductCommand(productUpdateDto);
         await _mediator.Send(updateProductCommand);
 
@@ -83,5 +98,16 @@ public class ProductController : Controller
         var count = await _mediator.Send(getProductCountForCategoryQuery);
 
         return Ok(new { count });
+    }
+    
+    [NonAction]
+    private int GetUserId()
+    {
+        var userIdClaim = _httpContext.User.Claims.FirstOrDefault(i => i.Type.Equals("userid"));
+
+        if (userIdClaim is null)
+            throw new InvalidTokenException("Invalid token");
+
+        return int.Parse(userIdClaim.Value);
     }
 }

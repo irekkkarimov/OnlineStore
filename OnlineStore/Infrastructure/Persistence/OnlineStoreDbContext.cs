@@ -23,6 +23,10 @@ public class OnlineStoreDbContext : DbContext
         modelBuilder.Entity<CartItem>().Ignore(i => i.Id)
             .HasKey(i => new { i.UserId, i.ProductId });
 
+        modelBuilder.Entity<UserBalance>().Ignore(i => i.Id)
+            .HasKey(i => i.UserId);
+            
+
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(OnlineStoreDbContext).Assembly);
     }
 

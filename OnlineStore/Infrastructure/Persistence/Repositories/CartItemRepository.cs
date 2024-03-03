@@ -55,7 +55,8 @@ public class CartItemRepository : ICartItemRepository
     {
         var cartItemQuery = _context.CartItems.Where(i => i.Id == id)
             .Include(i => i.User)
-            .Include(i => i.Product);
+            .Include(i => i.Product)
+            .Include(i => i.Product.Category);
 
         var cartItem = await cartItemQuery.FirstOrDefaultAsync();
         return cartItem;
@@ -63,10 +64,10 @@ public class CartItemRepository : ICartItemRepository
 
     public async Task<List<CartItem>> GetByUserIdAsync(int userId)
     {
-        // TODO include for category in product
         var cartItemsOfUserQuery = _context.CartItems.Where(i => i.UserId == userId)
             .Include(i => i.User)
-            .Include(i => i.Product);
+            .Include(i => i.Product)
+            .Include(i => i.Product.Category);
 
         var cartItemsOfUser = await cartItemsOfUserQuery.ToListAsync();
         return cartItemsOfUser;

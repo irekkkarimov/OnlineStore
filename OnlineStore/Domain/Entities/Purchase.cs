@@ -11,4 +11,5 @@ public class Purchase : Entity
     public string? PromoCode { get; set; }
     public double TotalPrice { get; set; }
     public double Discount { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
 }

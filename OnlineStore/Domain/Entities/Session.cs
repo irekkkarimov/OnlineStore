@@ -8,4 +8,5 @@ public class Session : Entity
     public User User { get; set; } = null!;
     public DateTime LoggedInAt { get; set; } = DateTime.Now;
     public DateTime TokenExpiresAt { get; set; }
+    public string Token { get; set; } = null!;
 }

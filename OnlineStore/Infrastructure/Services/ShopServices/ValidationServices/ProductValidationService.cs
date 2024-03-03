@@ -17,6 +17,7 @@ public class ProductValidationService : IProductValidationService
 
     public async Task ValidateAddingAsync(ProductAddDto productAddDto)
     {
+        ValidateUserId(productAddDto.UserId);
         ValidateProductName(productAddDto.Name);
         await ValidateProductCategoryIdAsync(productAddDto.CategoryId);
     }
@@ -30,6 +31,12 @@ public class ProductValidationService : IProductValidationService
     public async Task ValidateCategoryForCountAsync(int productCategoryId)
     {
         await ValidateProductCategoryIdAsync(productCategoryId);
+    }
+
+    private void ValidateUserId(int userId)
+    {
+        if (userId < 1)
+            throw new InvalidProductException("Invalid user id");
     }
 
     private void ValidateProductName(string productName)

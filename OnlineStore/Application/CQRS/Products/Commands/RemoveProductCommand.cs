@@ -1,5 +1,6 @@
+using Application.DTOs.Product;
 using MediatR;
 
 namespace Application.CQRS.Products.Commands;
 
-public record RemoveProductCommand(int ProductId) : IRequest;
+public record RemoveProductCommand(ProductRemoveDto ProductRemoveDto) : IRequest;

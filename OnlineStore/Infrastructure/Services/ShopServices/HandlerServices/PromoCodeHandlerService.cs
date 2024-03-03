@@ -118,7 +118,7 @@ public class PromoCodeHandlerService : IPromoCodeHandlerService
     {
         if (promoCode is null)
             throw new WrongPromoCodeException("PromoCode was not found");
-
+        
         if (promoCode.IsActive == shouldBeActive) return;
 
         if (tryingToUse)
